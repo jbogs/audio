@@ -90,12 +90,25 @@ class Ventana(QtWidgets.QMainWindow):
         self.audio.shutdown()
         event.accept()
 
-    
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
-    if not Installer.update("./"):
+    current_directory = os.getcwd()
+    current_dir_name = os.path.basename(current_directory)
+    parent_directory = os.path.dirname(current_directory)
+
+    dir = ""
+    
+    # for testing
+    if current_dir_name == "audio":
+        dir = "./"
+    else:
+        dir = parent_directory
+
+    print(dir)
+
+    if not Installer.update(dir):
         app.setApplicationName("Gayming")
         ui = Ventana()
         ui.show()
