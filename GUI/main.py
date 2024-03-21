@@ -95,7 +95,7 @@ class Ventana(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
-    if not Installer.update("./Path"):
+    if not Installer.update("./"):
         app.setApplicationName("Gayming")
         ui = Ventana()
         ui.show()

@@ -14,7 +14,7 @@ class Installer:
         msg_box.exec_()
 
         try:
-            subprocess.run(["pyinstaller", "--icon=game.ico", "--onefile", "--clean", "--noconsole", "./GUI/main.py"])
+            subprocess.run(["pyinstaller", "--onefile", "--clean", "--noconsole", "./GUI/main.py"])
         except subprocess.CalledProcessError as e:
             pass
 
