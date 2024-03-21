@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMessageBox
 
 from leftbar import Left
 from rightbar import Right
@@ -9,10 +10,9 @@ from listener import Listener
 import socket
 
 from Audio import Audio
-
+from installer import Installer
+import os
 import sys
-app = QtWidgets.QApplication(sys.argv)
-app.setApplicationName("Gayming")
 
 
 class Ventana(QtWidgets.QMainWindow):
@@ -90,8 +90,30 @@ class Ventana(QtWidgets.QMainWindow):
         self.audio.shutdown()
         event.accept()
 
+    
+
 if __name__ == "__main__":
-    ui = Ventana()
-    ui.show()
-    app.setWindowIcon(QtGui.QIcon('game.ico'))
-    sys.exit(app.exec_())
+    app = QtWidgets.QApplication(sys.argv)
+
+    if not Installer.update("./Path"):
+        app.setApplicationName("Gayming")
+        ui = Ventana()
+        ui.show()
+        app.setWindowIcon(QtGui.QIcon('game.ico'))
+        sys.exit(app.exec_())
+    else:
+        # Prompt user to restart the application
+        msg_box = QMessageBox()
+        msg_box.setText("it's done updating, close this and it will auto restart")
+        msg_box.exec_()
+        app.quit()
+
+        # Path to the executable relative to the current script location
+        executable_path = os.path.abspath(os.path.join("dist", "main.exe"))
+
+        # Check if the executable file exists
+        if os.path.exists(executable_path):
+            # Execute the executable
+            os.system(executable_path)
+        else:
+            print("Executable not found:", executable_path)

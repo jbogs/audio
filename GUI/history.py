@@ -58,7 +58,7 @@ class History(QtWidgets.QWidget):
         )
 
         # Create widgets
-        self.label = QLabel("Voice Call")
+        self.label = QLabel("Online")
         self.label.setStyleSheet("""
             QLabel {
                 padding-bottom: 30px;
