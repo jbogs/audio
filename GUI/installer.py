@@ -17,12 +17,15 @@ class Installer:
         path = os.path.join(repo_path, "GUI", "main.py")
 
         try:
-            subprocess.run(["pyinstaller", "--onefile", "--clean", "--noconsole", path])
+            subprocess.run(["pyinstaller", "--onefile", "--clean", "--noconsole", "--distpath", repo_path, path])
         except subprocess.CalledProcessError as e:
             pass
 
     @staticmethod
-    def update(repo_path):
+    def update(repo_path, FORCE_INSTALL):
+        if FORCE_INSTALL:
+            Installer.install(repo_path)
+
         repo = git.Repo(repo_path)
         
         # Fetch latest changes from remote

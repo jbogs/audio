@@ -98,17 +98,11 @@ if __name__ == "__main__":
     current_dir_name = os.path.basename(current_directory)
     parent_directory = os.path.dirname(current_directory)
 
-    dir = ""
-    
-    # for testing
-    if current_dir_name == "audio":
-        dir = "./"
-    else:
-        dir = parent_directory
+    force = False
+    if not os.path.exists(os.path.join(current_directory, "main.exe")):
+        force = True
 
-    print(dir)
-
-    if not Installer.update(dir):
+    if not Installer.update(current_directory, force):
         app.setApplicationName("Gayming")
         ui = Ventana()
         ui.show()
